@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, StatusBar, Button} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  Button,
+  Platform,
+} from 'react-native';
 import React from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
@@ -10,8 +17,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {Svg, Circle} from 'react-native-svg';
-
-
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -77,6 +82,14 @@ const App = () => {
             <Button title="Reset" onPress={() => (width.value = 100)} />
           </View>
         </View>
+        <View
+          style={
+            Platform.OS === 'ios'
+              ? styles.android_continer
+              : styles.ios_container
+          }>
+          <Text>Test for the ios container</Text>
+        </View>
       </NavigationContainer>
     </>
   );
@@ -108,5 +121,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#b58df1',
     borderRadius: 20,
     marginVertical: 20,
+  },
+  ios_container: {
+    height: Platform.OS === 'ios' ? 30 : 0,
+    flex: Platform.OS === 'ios' ? 1 : 0,
+  },
+  android_continer: {
+    height: 20,
+    flex: 0,
   },
 });
