@@ -5,7 +5,11 @@ import Icons from 'react-native-vector-icons/MaterialIcons';
 import Images from '../constants/Images';
 import Colors from '../constants/Colors';
 
-const ProfilePic = ({imageUrl, TakePhotofromGallery}) => {
+const ProfilePic = ({
+  imageUrl,
+  TakePhotofromGallery = () => {},
+  showCamera = true,
+}) => {
   return (
     <View style={styles.root}>
       <Image
@@ -17,12 +21,14 @@ const ProfilePic = ({imageUrl, TakePhotofromGallery}) => {
             : {uri: imageUrl, cache: 'reload'}
         }
       />
-      <TouchableOpacity
-        style={styles.camera}
-        onPress={() => TakePhotofromGallery()}
-        activeOpacity={0.5}>
-        <Icons name="camera" size={20} color={Colors.white} />
-      </TouchableOpacity>
+      {showCamera && (
+        <TouchableOpacity
+          style={styles.camera}
+          onPress={() => TakePhotofromGallery()}
+          activeOpacity={0.5}>
+          <Icons name="camera" size={20} color={Colors.white} />
+        </TouchableOpacity>
+      )}
     </View>
   );
 };
@@ -55,6 +61,6 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     borderWidth: 2,
     borderColor: Colors.PRIMARY,
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
   },
 });

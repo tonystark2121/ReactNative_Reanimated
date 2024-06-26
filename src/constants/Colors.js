@@ -3,5 +3,6 @@ export default {
   SECONDRY: '#2789FD',
   TEXT1: '#0C2F49',
   white: '#fff',
-  background: '#f5f5f5'
+  background: '#f5f5f5',
+  borderColor: '#dcdcdc',
 };
