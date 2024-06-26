@@ -1,5 +1,6 @@
 import {
   ImageBackground,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,6 +17,8 @@ import {useDispatch} from 'react-redux';
 import {clearSelectedChild} from '../services/reducers/CommonReducer';
 import Feather from 'react-native-vector-icons/Feather';
 import {Badge} from 'react-native-paper';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 const TopHeader = ({
   titile,
   right,
@@ -48,10 +51,15 @@ const TopHeader = ({
         {/* Back button */}
         {showBackIcon && (
           <TouchableOpacity style={styles.left_icon_wrap} onPress={onPressBack}>
-            <MaterialIcons
-              name="keyboard-arrow-left"
-              style={styles.left_icon}
-            />
+            {Platform === 'ios' ? (
+              //  nomal back icon
+              <Ionicons name="ios-arrow-back" style={styles.left_icon} />
+            ) : (
+              <MaterialIcons
+                name="keyboard-arrow-left"
+                style={styles.left_icon}
+              />
+            )}
           </TouchableOpacity>
         )}
         {/* title */}
