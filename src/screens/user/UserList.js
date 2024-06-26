@@ -77,9 +77,9 @@ const UserList = ({navigation}) => {
 
   return (
     <>
-      <TopHeader titile={'User List'} showBackIcon={false} />
+      <TopHeader titile={'User Management App'} showBackIcon={false} />
       <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
-        <Text>Count: {userData?.length ?? '0'}</Text>
+        {/* <Text>Count: {userData?.length ?? '0'}</Text> */}
         <FlatList
           data={userData}
           renderItem={({item}) => (
