@@ -1,63 +1,52 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  StatusBar,
-  Button,
-  Platform,
-} from 'react-native';
 import React from 'react';
 import 'react-native-gesture-handler';
-import {NavigationContainer} from '@react-navigation/native';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {Provider} from 'react-redux';
+import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
+import store from './src/services/store';
+
+import {QueryClient, QueryClientProvider} from 'react-query';
+import {persistStore} from 'redux-persist';
+import {PersistGate} from 'redux-persist/integration/react';
+import Routes from './src/routes';
+
+export const persistor = persistStore(store);
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   return (
-    <>
-      <NavigationContainer>
-        <StatusBar backgroundColor={'transparent'} translucent={true} />
-        <View style={{height: 30, backgroundColor: 'red'}} />
-
-        <View style={styles.root}>
-          <Text style={styles.title}>Hello World</Text>
-        </View>
-      </NavigationContainer>
-    </>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <PaperProvider
+            theme={{
+              colors: {
+                ...DefaultTheme.colors,
+                primary: '#164B92',
+                secondary: '#2789FD',
+                outline: 'rgba(12, 47, 73, 0.5)',
+                placeholder: 'rgba(12, 47, 73, 0.5)',
+                surface: 'rgba(12, 47, 73, 0.5)',
+                surfaceVariant: 'rgba(12, 47, 73, 0.5)',
+                onSurfaceVariant: 'rgba(12, 47, 73, 0.5)',
+                background: '#fff',
+              },
+            }}>
+            <QueryClientProvider client={queryClient}>
+              <Routes />
+            </QueryClientProvider>
+          </PaperProvider>
+        </PersistGate>
+      </Provider>
+    </GestureHandlerRootView>
   );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    color: 'blue',
-  },
-  box: {
-    height: 100,
-    backgroundColor: '#b58df1',
-    borderRadius: 20,
-    marginVertical: 20,
-  },
-  boxForMove: {
-    height: 100,
-    width: 100,
-    backgroundColor: '#b58df1',
-    borderRadius: 20,
-    marginVertical: 20,
-  },
-  ios_container: {
-    height: Platform.OS === 'ios' ? 30 : 0,
-    flex: Platform.OS === 'ios' ? 1 : 0,
-  },
-  android_continer: {
-    height: 20,
-    flex: 0,
-  },
-});
