@@ -4,7 +4,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 import React from 'react';
@@ -17,7 +16,6 @@ import {Divider} from 'react-native-paper';
 import moment from 'moment';
 
 const MailOpen = async email => {
-  console.log(email);
   if (Platform.OS === 'ios') {
     email = `mailto:${email}`;
   } else {

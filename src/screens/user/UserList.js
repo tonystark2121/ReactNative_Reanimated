@@ -1,18 +1,15 @@
 import {
-  AppState,
   FlatList,
   RefreshControl,
   StyleSheet,
-  Text,
   ToastAndroid,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import TopHeader from '../../components/TopHeader';
 import {getUserList} from '../../services/userservices/userServices';
 import {useQuery} from 'react-query';
 import {ActivityIndicator} from 'react-native-paper';
-import {useFocusEffect} from '@react-navigation/native';
 import ListEmptyComponent from '../../components/ListEmptyComponent';
 import Colors from '../../constants/Colors';
 import UserCard from './components/UserCard';
@@ -32,7 +29,7 @@ const UserList = ({navigation}) => {
     isFetching: getUserListFetching,
     refetch: getUserList_refetch,
   } = useQuery({
-    queryKey: ['getUserList', page],
+    queryKey: ['getUserList', page], //with the help of this key we can refetch the data
     queryFn: () =>
       getUserList({
         page: page,
@@ -45,7 +42,7 @@ const UserList = ({navigation}) => {
     enabled: true,
   });
 
-  // handling the focus event to fetch the user data
+  // handling the increment of the page
   const fetchMore = () => {
     dispatch(setPage(page + 1));
   };
@@ -61,6 +58,7 @@ const UserList = ({navigation}) => {
     };
   }, [navigation]);
 
+  // showing the loader at the end of the list when we reach the end
   const ListEndLoader = () => {
     return (
       <View
@@ -79,7 +77,6 @@ const UserList = ({navigation}) => {
     <>
       <TopHeader titile={'User Management App'} showBackIcon={false} />
       <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
-        {/* <Text>Count: {userData?.length ?? '0'}</Text> */}
         <FlatList
           data={userData}
           renderItem={({item}) => (
