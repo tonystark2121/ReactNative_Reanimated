@@ -4,5 +4,5 @@ export default {
   TEXT1: '#0C2F49',
   white: '#fff',
   background: '#f5f5f5',
-  borderColor: '#dcdcdc',
+  borderColor: '#0C2F4950',
 };

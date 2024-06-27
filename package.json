@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "android:release": "cd android && ./gradlew clean && ./gradlew assembleRelease"
+    "android:release": "cd android && ./gradlew clean && ./gradlew assembleRelease",
+    "ios:release": "cd ios && pod install && xcodebuild -workspace Animation.xcworkspace -scheme Animation -configuration Release -sdk iphoneos -derivedDataPath ios/build"
   },
   "dependencies": {
     "@react-native-masked-view/masked-view": "^0.3.0",
