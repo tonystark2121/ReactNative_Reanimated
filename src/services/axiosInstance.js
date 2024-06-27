@@ -10,9 +10,11 @@ const userAxiosInstance = axios.create({
   },
 });
 
+// this axios instance will be used for all the requests that require authentication and also will be used for refreshing the token
+
 userAxiosInstance.interceptors.request.use(async req => {
   // const {
-  //   authStore: {login_Data},
+  //   commonStore: {login_Data},
   // } = store.getState();
   console.log('in user url', req.url, req.params, req.data);
   // try {
