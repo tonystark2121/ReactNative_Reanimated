@@ -4,23 +4,32 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
 
-## Step 1: Start the Metro Server
+## Step 1: Clone the projects and install Dependencies
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+First, you will need to clone this project. Then after cloning you will need to install the node modules for Android.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+To install node modules, run the following command from the _root_ of your React Native project:
 
 ```bash
 # using npm
-npm start
+npm install
 
 # OR using Yarn
-yarn start
+yarn install
 ```
+
+### For IOS
+
+For iOS, navigate to the ios directory and install the dependencies:
+
+```bash
+cd ios && pod install
+```
+
 
 ## Step 2: Start your Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+After installing the dependency. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
 
 ### For Android
 
@@ -50,7 +59,7 @@ This is one way to run your app — you can also run it directly from within And
 
 Now that you have successfully run the app, let's modify it.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
+1. Open `App.js` in your text editor of choice and edit some lines.
 2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
    For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
