@@ -3,9 +3,13 @@ import React from 'react';
 import Colors from '../../../constants/Colors';
 import Sizes from '../../../constants/Sizes';
 
-const ProductCard = ({item}) => {
+const ProductCard = ({item, navigation}) => {
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {}}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate('ProductDetails', {item});
+      }}>
       <Image source={{uri: item?.image}} style={styles.image} />
       {/* user details */}
       <View style={styles.textContainer}>

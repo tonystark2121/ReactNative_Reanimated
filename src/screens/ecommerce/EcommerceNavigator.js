@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import ProductCategories from './ProductCategories';
 import ProductDetails from './ProductDetails';
+import UserCart from './store/UserCart';
 
 const Stack = createStackNavigator();
 export default function EcommerceNavigator({navigation}) {
@@ -19,6 +20,7 @@ export default function EcommerceNavigator({navigation}) {
         animation="spring"
         component={ProductDetails}
       />
+      <Stack.Screen name="UserCart" animation="spring" component={UserCart} />
     </Stack.Navigator>
   );
 }

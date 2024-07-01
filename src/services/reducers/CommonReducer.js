@@ -5,6 +5,9 @@ const CommonSlice = createSlice({
     // creating the pargination state for managing the user data in the app
     userData: [],
     page: 1,
+    selectedProducts: [],
+
+    // for eccomerce app
   },
   reducers: {
     // setting the user data in the state
@@ -15,7 +18,11 @@ const CommonSlice = createSlice({
     setPage: (state, action) => {
       state.page = action.payload;
     },
+    // setting the selected products in the state
+    setSelectedProducts: (state, action) => {
+      state.selectedProducts = action.payload;
+    },
   },
 });
 export default CommonSlice.reducer;
-export const {setUserData, setPage} = CommonSlice.actions;
+export const {setUserData, setPage, setSelectedProducts} = CommonSlice.actions;

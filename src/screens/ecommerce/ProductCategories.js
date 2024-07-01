@@ -16,8 +16,10 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useQuery} from 'react-query';
 import FilterCategoryCards from './components/FilterCategoryCards';
 import ProductCard from './components/ProductCard';
+import Loader from '../../components/Loader';
+import ListEmptyComponent from '../../components/ListEmptyComponent';
 
-const ProductCategories = () => {
+const ProductCategories = ({navigation}) => {
   const [state, setState] = useState({
     productCategoriesData: [],
     selectedCategory: '',
@@ -55,7 +57,6 @@ const ProductCategories = () => {
         categories: state.selectedCategory,
       }),
     onSuccess: ({data}) => {
-      console.log(data);
       setState({
         ...state,
         selectedCategoryProducts: data,
@@ -69,7 +70,7 @@ const ProductCategories = () => {
   useFocusEffect(
     useCallback(() => {
       getAllCategories_refetch();
-    }, []),
+    }, [navigation]),
   );
 
   useEffect(() => {
@@ -78,11 +79,18 @@ const ProductCategories = () => {
 
   return (
     <>
-      <TopHeader titile={'Product Categories'} showBackIcon={false} />
+      <TopHeader
+        titile={'Product Categories'}
+        cart={true}
+        onPress={() => {
+          navigation.navigate('UserCart');
+        }}
+        showBackIcon={false}
+      />
       {/* filter type catergories */}
       <View style={styles.container}>
         {getAllCategoriesLoading ? (
-          <Text>Loading...</Text>
+          <Loader open={getAllCategoriesLoading} text="Loading..." />
         ) : (
           <FlatList
             horizontal
@@ -102,10 +110,11 @@ const ProductCategories = () => {
             //   />
             // }
             data={state.productCategoriesData}
-            keyExtractor={item => item.id}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={({item}) => (
               <FilterCategoryCards
                 item={item}
+                key={item.id}
                 state={state}
                 setState={setState}
                 getAllCategories_refetch={getAllCategories_refetch}
@@ -132,7 +141,10 @@ const ProductCategories = () => {
           />
         }
         data={state?.selectedCategoryProducts}
-        renderItem={({item}) => <ProductCard item={item} />}
+        ListEmptyComponent={<ListEmptyComponent />}
+        renderItem={({item}) => (
+          <ProductCard navigation={navigation} key={item.id} item={item} />
+        )}
         keyExtractor={item => item.id}
       />
     </>

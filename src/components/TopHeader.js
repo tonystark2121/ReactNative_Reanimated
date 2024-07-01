@@ -27,6 +27,7 @@ const TopHeader = ({
   path = '',
   docId = '',
   filter,
+  cart,
   logout = false,
   notification,
 }) => {
@@ -75,6 +76,12 @@ const TopHeader = ({
         <View style={styles.notificationIconContainer}>
           <TouchableOpacity style={{left: 10}} onPress={onPress}>
             <AntDesign name="filter" size={26} color="white" />
+          </TouchableOpacity>
+        </View>
+      ) : cart ? (
+        <View style={styles.notificationIconContainer}>
+          <TouchableOpacity style={{left: 10}} onPress={onPress}>
+            <AntDesign name="shoppingcart" size={26} color="white" />
           </TouchableOpacity>
         </View>
       ) : notification ? (
