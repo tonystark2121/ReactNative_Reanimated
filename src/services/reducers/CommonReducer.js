@@ -3,9 +3,9 @@ const CommonSlice = createSlice({
   name: 'CommonSlice',
   initialState: {
     // creating the pargination state for managing the user data in the app
+    selectedProducts: [],
     userData: [],
     page: 1,
-    selectedProducts: [],
 
     // for eccomerce app
   },

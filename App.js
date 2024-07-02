@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
@@ -9,6 +9,9 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
 import Routes from './src/routes';
+import Geocoder from 'react-native-geocoding';
+import Geolocation from '@react-native-community/geolocation';
+import Toast from 'react-native-toast-message';
 
 export const persistor = persistStore(store);
 export const queryClient = new QueryClient({
@@ -20,7 +23,14 @@ export const queryClient = new QueryClient({
   },
 });
 
+Geocoder.init('AIzaSyABlI8WjXoGl_Va_TxQfFelLj1QDCEbLas');
+
 const App = () => {
+  const [state, setState] = React.useState({
+    location: '',
+  });
+
+  console.log(state?.location, 'location');
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <Provider store={store}>
@@ -45,6 +55,7 @@ const App = () => {
           </PaperProvider>
         </PersistGate>
       </Provider>
+      <Toast ref={ref => Toast.setRef(ref)} />
     </GestureHandlerRootView>
   );
 };

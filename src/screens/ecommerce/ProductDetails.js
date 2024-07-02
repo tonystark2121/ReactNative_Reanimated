@@ -1,5 +1,6 @@
 import {
   Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,12 +14,15 @@ import Colors from '../../constants/Colors';
 import CustomButton from '../../components/CustomButton';
 import {setSelectedProducts} from '../../services/reducers/CommonReducer';
 import {useDispatch, useSelector} from 'react-redux';
+import Toast from 'react-native-toast-message';
 
 const ProductDetails = ({route, navigation}) => {
   const {item} = route?.params ?? {};
-  const {selectedProducts} = useSelector(store => store.commonStore);
-  console.log(selectedProducts, 'selectedProducts');
   const dispatch = useDispatch();
+  const selectedProducts = useSelector(
+    state => state.commonStore.selectedProducts ?? [],
+  );
+
   const [state, setState] = useState({
     loading: false,
   });
@@ -68,25 +72,53 @@ const ProductDetails = ({route, navigation}) => {
               ...state,
               loading: true,
             });
+
             //check on unique would go here else inform user
             if (selectedProducts?.findIndex(x => x?.id === item?.id) !== -1) {
-              ToastAndroid.show(
-                'Product already added in the cart',
-                ToastAndroid.SHORT,
-              );
+              Platform.OS === 'android' &&
+                ToastAndroid.show(
+                  'Product already added in the cart',
+                  ToastAndroid.SHORT,
+                );
+              Platform.OS === 'ios' &&
+                Toast.show({
+                  type: 'error',
+                  position: 'bottom',
+                  text1: 'Error',
+                  text2: 'Product already added in the cart',
+                  visibilityTime: 4000,
+                  autoHide: true,
+                });
               setState({
                 ...state,
                 loading: false,
               });
               return;
             }
-            // dispatch(setSelectedProducts([]));
+
             dispatch(setSelectedProducts([...selectedProducts, item]));
             setState({
               ...state,
               loading: false,
             });
-            ToastAndroid.show('Product added in the cart', ToastAndroid.SHORT);
+            {
+              Platform.OS === 'android' &&
+                ToastAndroid.show(
+                  'Product added in the cart',
+                  ToastAndroid.SHORT,
+                );
+            }
+            {
+              Platform.OS === 'ios' &&
+                Toast.show({
+                  type: 'success',
+                  position: 'bottom',
+                  text1: 'Success',
+                  text2: 'Product added in the cart',
+                  visibilityTime: 4000,
+                  autoHide: true,
+                });
+            }
             navigation.goBack();
           }}
           width="80%"

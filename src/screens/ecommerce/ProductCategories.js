@@ -1,5 +1,6 @@
 import {
   FlatList,
+  Platform,
   RefreshControl,
   StyleSheet,
   Text,
@@ -18,13 +19,38 @@ import FilterCategoryCards from './components/FilterCategoryCards';
 import ProductCard from './components/ProductCard';
 import Loader from '../../components/Loader';
 import ListEmptyComponent from '../../components/ListEmptyComponent';
+import Geocoder from 'react-native-geocoding';
+import Geolocation from '@react-native-community/geolocation';
+import Colors from '../../constants/Colors';
+import Toast from 'react-native-toast-message';
 
 const ProductCategories = ({navigation}) => {
   const [state, setState] = useState({
     productCategoriesData: [],
     selectedCategory: '',
     selectedCategoryProducts: [],
+    location: '',
   });
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const {latitude, longitude} = position.coords;
+
+        Geocoder.from(latitude, longitude)
+          .then(json => {
+            var addressComponent = json.results[0].formatted_address;
+            setState(prev => ({
+              ...prev,
+              location: addressComponent,
+            }));
+          })
+          .catch(error => console.warn(error));
+      },
+      error => console.log(error),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
+    );
+  }, []);
 
   const {
     data: getAllCategories_data,
@@ -41,8 +67,17 @@ const ProductCategories = ({navigation}) => {
         selectedCategory: data[0],
       });
     },
-    onError: err =>
-      ToastAndroid.show(err?.response?.data?.message, ToastAndroid.LONG),
+    onError: err => {
+      Platform.OS === 'ios'
+        ? Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: err?.response?.data?.message,
+            visibilityTime: 4000,
+            autoHide: true,
+          })
+        : ToastAndroid.show(err?.response?.data?.message, ToastAndroid.LONG);
+    },
     enabled: true,
   });
   const {
@@ -62,8 +97,17 @@ const ProductCategories = ({navigation}) => {
         selectedCategoryProducts: data,
       });
     },
-    onError: err =>
-      ToastAndroid.show(err?.response?.data?.message, ToastAndroid.LONG),
+    onError: err => {
+      Platform.OS === 'ios'
+        ? Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: err?.response?.data?.message,
+            visibilityTime: 4000,
+            autoHide: true,
+          })
+        : ToastAndroid.show(err?.response?.data?.message, ToastAndroid.LONG);
+    },
     enabled: true,
   });
 
@@ -87,6 +131,7 @@ const ProductCategories = ({navigation}) => {
         }}
         showBackIcon={false}
       />
+
       {/* filter type catergories */}
       <View style={styles.container}>
         {getAllCategoriesLoading ? (
@@ -122,6 +167,19 @@ const ProductCategories = ({navigation}) => {
             )}
           />
         )}
+      </View>
+
+      <View
+        style={{
+          width: '100%',
+          padding: 10,
+          alignSelf: 'center',
+          backgroundColor: '#f5f5f5',
+        }}>
+        <Text style={{fontSize: 16, color: Colors.TEXT1, fontWeight: 'bold'}}>
+          Current Location:
+          {state.location ?? 'Fetching Location...'}
+        </Text>
       </View>
 
       {/* product list */}
