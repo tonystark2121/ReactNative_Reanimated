@@ -12,6 +12,7 @@ import Routes from './src/routes';
 import Geocoder from 'react-native-geocoding';
 import Geolocation from '@react-native-community/geolocation';
 import Toast from 'react-native-toast-message';
+import Config from 'react-native-config';
 
 export const persistor = persistStore(store);
 export const queryClient = new QueryClient({
@@ -23,7 +24,7 @@ export const queryClient = new QueryClient({
   },
 });
 
-Geocoder.init('AIzaSyABlI8WjXoGl_Va_TxQfFelLj1QDCEbLas');
+Geocoder.init(Config.GOOGLE_API_KEY);
 
 const App = () => {
   const [state, setState] = React.useState({
