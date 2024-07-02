@@ -1,4 +1,7 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+This contains two apps
+# 1. Infinite Scroll -> It is present in the main branch.
+# 2. E-commerce App -> Have features like showing the user's current location along with showing product categories with a detailed view of the product and we are able to add them to the card.
 
 # Getting Started
 
