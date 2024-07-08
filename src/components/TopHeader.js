@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: Sizes.wp('5%'),
-
     paddingTop: Sizes.hp('5%'),
   },
   left_wrap: {

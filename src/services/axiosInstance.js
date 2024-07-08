@@ -1,7 +1,5 @@
 import axios from 'axios';
 import Config from 'react-native-config';
-import store from './store';
-import {setLoginState, setLogout} from './reducers/AuthReducer';
 
 const userAxiosInstance = axios.create({
   timeout: 15000,

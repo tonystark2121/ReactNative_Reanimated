@@ -4,7 +4,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {Provider} from 'react-redux';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import store from './src/services/store';
-
+import * as Updates from 'expo-updates';
 import {QueryClient, QueryClientProvider} from 'react-query';
 import {persistStore} from 'redux-persist';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -21,6 +21,10 @@ export const queryClient = new QueryClient({
 });
 
 const App = () => {
+  const runTypeMessage = Updates.isEmbeddedLaunch
+    ? 'This app is running from built-in code'
+    : 'This app is running an update';
+
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <Provider store={store}>

@@ -1,4 +1,25 @@
 {
   "name": "Animation",
-  "displayName": "Animation"
+  "displayName": "Animation",
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "b6512acd-797b-4073-89dd-ec49ad809188"
+      }
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/b6512acd-797b-4073-89dd-ec49ad809188",
+      "requestHeaders": {
+        "expo-channel-name": "main"
+      },
+      "fallbackToCacheTimeout": 0
+    },
+    "android": {
+      "package": "com.alok2121.animation"
+    },
+    "ios": {
+      "bundleIdentifier": "com.alok2121.animation"
+    }
+  }
 }

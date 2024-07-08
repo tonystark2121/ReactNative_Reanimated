@@ -1,9 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {StatusBar} from 'react-native';
+
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import UsersNavigator from '../screens/user/UsersNavigator';
+import {StatusBar} from 'expo-status-bar';
 
 const Stack = createStackNavigator();
 
